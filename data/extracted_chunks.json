@@ -1,0 +1,474 @@
+[
+  {
+    "chunk_id": "NoSQL_L1_P1_C1",
+    "text": "Introduction of \nNOSQL",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 1,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P2_C1",
+    "text": "Theoutline\n1 What isSQL?\nExamples ofRDBMS\nWhat isNOSQL?\nComparison between\nSQL andNOSQL\nWhen touseSQL and \nNOSQL?\nTypes ofNOSQL2\n3\n4\n5\n66",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 2,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P3_C1",
+    "text": "What isSQL?\n3",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 3,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P4_C1",
+    "text": "Itstands forStructured Query Language. It allows writing database queries to \nretreve, insert, update and delete data( CRUD operations). Also, thecreation \noftables, andjoinqueries. Forinstance,\nSELECT id,name, price from PRODUCT\nThese queries arebuilt using specific keywords (ex:select, join), syntax and \nformat using parameters (id,price ..)What isSQL?",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 4,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P5_C1",
+    "text": "Therelational databases support SQL. They aremade ofsetoftables.\neach table contains asetoffields, andmany records.\nUsing sql,thedata must follow a strict schema (setoffields)\nEach new record must have thesetoffields defined atthecreation ofthe \ntable. Itcannot have more fields!Thedatabase structure: Relational\nTables\nFields (Columns) \nRecords (Rows)\nProduct\nid name price description\n1 «Book » 122.4 «Most interesting book oftheyear »",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 5,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P6_C1",
+    "text": "Allrecords must benormalised toadhere tothesame schema (STRICT)Thedatabase structure: Relational\nProduct\nid name price description\n1 122.4 «Most interesting book oftheyear »\n2 90.5 «acomfortable chair »\n3«Book »\n«Chair »\n… … …\nALL records must follow the \nsame schema",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 6,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P7_C1",
+    "text": "Therelational database hasmultiple tables that areRELATEDThedatabase structure: relations\nUser\nid email name\n1 mohamed@test.com Mohamed\n2 ali@test.com Ali\nProduct\nid name price description\n1 «Book » 122.4 Most interesting book oftheyearOrder\nid user_id product_id\n1 2 1\n2 1 1",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 7,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P8_C1",
+    "text": "Therelational database hasmultiple tables that areRELATEDThedatabase structure: types ofrelations\nUser\nid\ncontact_data_idname, ageContactData\nid\nemail, phoneUser\nid\ncontact_data_idname, ageProduct\nid\ncreator_idtitle,description\ncontact_data_id contact_data_idOne-to-One One-to-Many\nMany -to-Many\nUser\nid\nname, ageRole\nid\nname, ageUserRole\nuser_id\nrole_id",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 8,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P9_C1",
+    "text": "Atomicity : A transaction happens completely or not at all. Example : Bank Transfer\nConsistency :Atransaction must keep thedatabase inavalid state .Example :Student\nagemust begreater than 0\nIsolation :Simultaneous transactions should notinterfere witheach other .\nDurability :Once committed, data ispermanently saved .RDBMS: ACID",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 9,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P10_C1",
+    "text": "Nowadays, bigdata hasbecome tremendous due to:\nTheexplosion ofsocial media sites such asFacebook andTwitter, user driven \ncontents have increased rapidly. Hence, data, tobeanalysed andarchived, \nhave increased involume andtend towards being semi structured and \nunstructured.\nMonitoring systems likeGPS, sensors, automated trackers generate huge\nvolumes ofdata onaregular basis …Thechallenge ofbigdata\nThefactors above have made storing, analyzing, managing and\narchiving these bigdata achallenging task!Horizontal scalability ?More volumes of data? \nUnstructured data, performance \nvs consistency",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 10,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P11_C1",
+    "text": "Vertical Scaling\nAsto handle the larger volumes of data, vertical scaling isused in RDBMS( Relational \nDatabase Management System) .\nIt means increasing the capacity of a single database server by adding more hardware \nresources, including: CPU cores, More RAM, Faster storage, Better network capacity\nServer     \n4 CPU, 16GB\nServer     \n16 CPU, 64GBScaling up",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 11,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P12_C1",
+    "text": "Theremedy tothese \nchallenges isNOSQL\n10",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 12,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P13_C1",
+    "text": "Itstands forNotOnlySQL(NOSQL ).Itisanew setofdatabase that isnotbased on \ntheRelational Database Management Systems principles.\nNoSQL wasintroduced byCarl Strozzi on1998 toname hisfile-based database.\nIn2000 -Graph database Neo4j was launched.\n2004 –Google BigTable waslaunched.\n2005 -CouchDB islaunched.\n2007 -Theresearch paper onAmazon Dynamo isreleased.\n2008 -Facebooks open sources theCassandra project.\n2009 -Theterm NoSQL was reintroduced.What isNOSQL?",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 13,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P14_C1",
+    "text": "NoSQL databases have thefollowing features incommon:\nThey donotuserelational data model\nDonotfollow astrict schema\nThey runwell onclusters\nMost ofthem are open source\nThey aremade forthenew generation ofweb applicationsWhat isNOSQL? (Con’t)",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 14,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P15_C1",
+    "text": "What isNOSQL? (structure)\nThestructure isasfollows: forexfbuses graphs based tostore firends with \ntheir friends …\nTablesStructure \nDocuments Graphs",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 15,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P16_C1",
+    "text": "What isNoSql? storage\nData isstored inpartitions using ahashing function that takes thekeyasa \nparamater. Assuming wehave twopartitions only:\nf(x)Hashing Input\nPartition 1 Partition 2",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 16,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P17_C1",
+    "text": "What isNoSql? scaling\nf(x)More partitions canbeadded toNoSQL database inorder toaccomodate \nmore data =>Horizontal Scaling\nMore Partitions can\nbeadded:\nPartitionPartitionPartition",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 17,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P18_C1",
+    "text": "Advantages anddisadvantages ofNoSQL\n•High performance and \nscalability\n•Availability and flexibility\n•Open source and schema \nlessAdvantages Disadvantages\n•Lack ofstandardization\n•Consistency issues\n•Limited query capabilities",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 18,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P19_C1",
+    "text": "Thedifference between RDBMS andNoSQL \nDatabases\nRDBMS NoSQL Databases\nData \nmodelData isstored using arelational model with \nrows containting records andcolumns storing \ntheattributes.Itdoes notuserelational model\nSchema Itfollows afixed ,strict andalready defined \nschema. Columns aredefined before data \nentry. Modifying theschema requires setting \ntheDBoffline andaltering theentire database.Itfollows flexible schema: columns \ncanbeadded anytime.\nScalability Supports vertical scalability (having more \npowerful servers, more cpu, rammore cost). \nDifficult toscale horizontally (adding more \nmachines)Supports horizontal scaling ( \nadding comodity hardware: cheap \nservers) =>asitsupports \ndistributed architecture",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 19,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P19_C2",
+    "text": "y hardware: cheap \nservers) =>asitsupports \ndistributed architecture",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 19,
+    "chunk_index": 2
+  },
+  {
+    "chunk_id": "NoSQL_L1_P20_C1",
+    "text": "Thedifference between RDBMS andNoSQL\nDatabasesRDBMS NoSQL Databases\nType /structure Table based databases Can bedocument based, graph \nbased, keyvalue pairs\nUsage Isused incase ofhaving complex queries like\njoinsUsed when queries arenot \ncomplex (especially read \noperations )granting higher \nperformance asithandles large \nvolume ofdata\nOpen sourceIsamixofopen source products likeMySQL \nandcommercial ones likeOracle databaseNoSQL databases have been \nalways open source\nThefollowed \nprincipleTheACID model: Atomicity, Consistency, \nIsolation, andDurability (ACID) compliant.TheBASE model: Basically \navailable, Softstate and \neventually consistent",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 20,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P21_C1",
+    "text": "When touseSQL ornoSQL?\nSQL NoSQL\n•When access patterns are \nnotdefined.\n•When users want to \nperform flexible \nqueries/relational queries \n(like joins).\n•When itisrequired to \nenforce fields constraints \n(data type…)•When access patterns are\ndefined.\n•When theuseofcomplex \nqueries isnotrequired.\n•When yourequire high \nperformance andlow \nlatency.",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 21,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P22_C1",
+    "text": "Types ofNoSQLdatabases?(Con’t)\nThis iswhy NOSql databases were introduced. There exist four types:\nKey-Value Database\nDocument Database \n(document -oriented)\nColumn based data\nstores:\nGraph Database",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 22,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P23_C1",
+    "text": "Types ofNoSQL databases: Key-Value DB\nDefinition:\nValue 1\nValue 2•Thesimplest NoSQL database.\n•Every single item intheDBisstored asanattribute name or“key”along withits\nvalue .\n•Data isstored asacollection ofkey/value pairs.\n•Thekeyina key-value pairmust be unique .\n•Thevalues canbeinteger, string orcomplex data types.\n•Data isretrieved viaanexact match ofthekey.\nKey 1\n•New types ofdata canbeeasily added tothe\ndatabase asnew key-value pairs.\nKey 2",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 23,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P24_C1",
+    "text": "Types ofNoSQL databases: Key-Value DataBase\nOperations:\nHere aretheoperations thatcanbeperformed on akey-value database are:\n•putanew (key, value) :Insert thevalue associated withakey.\n•get(key) :akeyispassed toretrieve thevalue associated withthekey.\n•delete(key) :removes thevalue associated withakey.\n•update (key, value) :Update thevalue associated withakey.",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 24,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P25_C1",
+    "text": "Types ofNoSQL databases: Key-Value DataBase\nOperations:\nput(key,value)\nget(key)\ndelete(key)\nupdate(key,value)Key-value\nDatabaseApplication",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 25,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P26_C1",
+    "text": "Types ofNoSQL databases: Key-Value DataBase\nAdvantages:\n•Itisvery easy touse. Due tothesimplicity ofthedatabase, data canaccept any kind, oreven\ndifferent kinds when required.\n•Itsresponse time isfastduetoitssimplicity, given thattheremaining environment near itis\nvery much constructed andimproved.\n•Key-value store databases arescalable vertically aswellashorizontally.\n1",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 26,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P27_C1",
+    "text": "Types ofNoSQL databases: Key-Value DataBase\nUse cases:\n•In-memory data caching :itisaneffective cache mechanism forfrequently accessed\nbutrarely updated data toaccelerate theresponse ofapplications =>faster read and\nwrite .Hazelcast isanexample ofatechnology that provides anin-memory key-value\nstore forfastdata retrieval\n•User preference storage and personalisation :itcanbeused toprovide recommendations\nandstore personalized listsofitems forindividual clients. Forinstance e-commerce platforms,\nthey cancustomize/update adsaccordingly.",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 27,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P28_C1",
+    "text": "Types ofNoSQL databases: Key-Value DataBase\nKnown keyvalue DBs:",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 28,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P29_C1",
+    "text": "Types ofNoSQL databases?\nDocument Database (document -\noriented) :\n•Document databases areconsidered tobenon-relational ornosql databases .\n•Instead ofstoring data infixed rows and columns, document databases use flexible\ndocuments .Foradocument database, youhave data store likeJSON object .Youdonot\nrequire todefine which make itflexible .\n•Document databases arethemost popular alternative totabular, relational databases .\nHence, what is adocument?",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 29,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P30_C1",
+    "text": "Types ofNoSQL databases?\nDocument Database (document -\noriented) :\n•Adocument isarecord inadocument database .Adocument typically stores information\nabout oneobject andanyofitsrelated metadata .\n•Documents store data infield-value pairs .The values can beavariety oftypes and\nstructures, including strings, numbers, dates, arrays, orobjects .Documents canbestored\ninformats likeJSON, andXML.",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 30,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P31_C1",
+    "text": "Types ofNoSQL databases?\nDocument Database (document -\noriented):\nHere isaJSON document that\nstores information about auser named Tom.",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 31,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P32_C1",
+    "text": "Types ofNoSQL databases?\nDocument Database (document -\noriented):\nHere isaJSON document that\nstores information about auser named Tom.\nBut, what happens incase ofhaving many\nUsers?\nInthiscase, wetalkabout collections.\nSowhat iscollection?",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 32,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P33_C1",
+    "text": "Types ofNoSQL databases?\nDocument Database (document -oriented) :\n•Acollection isagroup ofdocuments .Collections typically store documents that have\nsimilar contents (similar toatable inRDBMS) .\n•Notalldocuments inacollection arerequired tohave thesame fields ,because document\ndatabases have aflexible schema .\n•Note that some document databases provide schema validation, sotheschema can\noptionally belocked down when needed .",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 33,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P34_C1",
+    "text": "NoSQL databases: Document based Database\nCollectionDocument#1\nKey:ValueDocument#2\n{Key:Value, \nKey:Value}Document#3\nKey:ValueDocument#4\nKey:ValueThestructure ofthedatabase:\nDatabase\nCollection\nCollection",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 34,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P35_C1",
+    "text": "NoSQL databases: Document based Database\nExample :\n○Forexample, following upthedocument fortheuser\nTom ,itcanbeadded toacollection named users .\n○Also, ifconsidering anew user called Donna ,itcanbe\nalsoadded tothecollection users .\n○Hence, theusers Tom andDonna belong tothesame\ncollection .\n○Note thatthedocument forDonna does notcontain\nthesame fields asthedocument forTom.Theusers\ncollection isleveraging aflexible schema tostore the\ninformation thatexists foreach user.",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 35,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P36_C1",
+    "text": "Why isiteasier towork with documents than tables\n•Developers commonly findworking withdata indocuments tobeeasier andmore intuitive\nthan working withdata intables .\n•Documents map todata structures inmost popular programming languages .Developers don't\nhave toworry about manually splitting related data across multiple tables when storing itor\njoining itback together when retrieving it.\n•JSON documents allow youtoembed related documents allowing easy fetching ofdata inone\nsingle call.Therefore, storing data intheJSON format istruly anatural way tostore\ninformation unlike theflatdata structure ofrows andcolumns .",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 36,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P37_C1",
+    "text": "NoSQL databases: Document based Database\nExample ofstoring auser Tom inRDBMS and \ndocument based database:\nLet's take another look atadocument \nforauser named Tom:\n•Alloftheinformation about Tom is \nstored inasingle document .",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 37,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P38_C1",
+    "text": "NoSQL databases: Document based Database\nExample(con’t):\nNow let'sconsider how wecanstore thatsame information inarelational database(RDBMS).\nWe'll start bycreating a table User thatstores the basic information about theuser:\nID first_name email cell\n1 Tom tom@example.com 564-777-521",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 38,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P39_C1",
+    "text": "NoSQL databases: Document based Database\nExample(con’t):\nAuser canlikemany things (meaning there isaone-to-many relationship between auser \nandlikes), sowewillcreate anew table named \"Likes\" tostore auser’s likes. TheLikes \ntable willhave aforeign keythatreferences theIDcolumn intheUser’s table.\nID user_id like\n10 1 fashion\n11 1 travel\n12 1 shopping",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 39,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P40_C1",
+    "text": "NoSQL databases: Document based Database\nExample(con’t)\nSimilarly, auser canrunmany businesses ,sowewillcreate anew table named \"Business\"\ntostore business information .TheBusiness table willhave aforeign keythatreferences the\nIDcolumn intheUsers table\nID user_id name partner status date_founded\n20 1 Entertainment\n1080Jean Bankrupt 2011 -05-19\n21 1 Phones shop NULL NULL 2012 -11-01",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 40,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P41_C1",
+    "text": "NoSQL databases: Document based Database\nCRUD operations :\n•Create :Documents canbecreated inthedatabase .Each document hasaunique identifier .\n•Read :Documents canberead from thedatabase .TheAPIorquery language allows developers\ntoquery fordocuments using their unique identifiers orfield values .Indexes canbeadded tothe\ndatabase inorder toincrease read performance .\n•Update :Existing documents canbeupdated —either inwhole orinpart.\n•Delete :Documents canbedeleted from thedatabase .",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 41,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P42_C1",
+    "text": "NoSQL databases: Document based Database\nUse cases: both transactional andanalytical applications:\n•Mobile applications\n•Processing ofpayment operations\n•Customer data management andpersonalization\n•Internet of Things (IoT)\n•Product catalogs andcontent management\n•Operational analytics\n•Real-time analytics",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 42,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P43_C1",
+    "text": "Examples ofdocument -based databases:\nMongoDB, OrientDB, Apache CouchDB, IBMCloudant, CrateDB, BaseX, and many more",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 43,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P44_C1",
+    "text": "NoSQL databases: Graph based database\nDefinition:\n•Data isorganized intheform ofagraph(directed graph with edges).\n•Agraph dbcontains acollection ofnodes andedges.\n•Anode represents anentity andanedge represents therelationship between two entities.\n•Likemany different NoSQL databases these data models don’t have anyschema asit is\nimportant because schema makes themodel wellandgood andeasy toedit.",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 44,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P45_C1",
+    "text": "NoSQL databases: Graph based database\nExample\nStudent: \nAhmedCourse: \nDatabase\nLecturer:\nAlya\nStudent:\nAbdullahCar: \nMercedesStudy\nTeachFriend ofDriveNode: represents an \nentity\nEdge:illustrates \nrelationship \nbetween two \nentities",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 45,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P46_C1",
+    "text": "NoSQL databases: Graph based database\nUse cases :\n•Social media analysis :Graph databases arecommonly used toanalyse social networks .A\nheavy volume ofuser accounts(nodes) andmulti-dimensional connections .Agraph analysis for\nasocial network candetermine :\noHow active areusers? (number ofnodes)\noWhich users have themost influence? (density ofconnections) …\n•Credit card fraud :Asameans offraud detection, pattern identification isoften thefirstline\nofdefense thanks tographs based databases .",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 46,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P47_C1",
+    "text": "Types ofNoSQL databases?\nGraph based Database: example",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 47,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P48_C1",
+    "text": "Types ofNoSQL DBs: Column based databases:\n•Acolumn store database isatype ofdatabase thatstores data using acolumn oriented model .\n•Columns store databases usesaconcept called keyspace .\n•Akeyspace islikeaschema intherelational model. Thekeyspace contains allthecolumn\nfamilies (liketables incase ofrelational model).Definition:",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 48,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P49_C1",
+    "text": "Types ofNoSQL DBs: Column based databases:\n•Columns store databases usesaconcept\ncalled keyspace .\n•Akeyspace islike aschema inthe\nrelational model .The keyspace contains all\nthecolumn families (like tables incase of\nrelational model) .Definition:",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 49,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P50_C1",
+    "text": "Types ofNoSQL databases: Column based\nDefintion :\n•The column families aredefined initially, the\ncolumns arenot.Columns canbeadded toany\ncolumn family atanytime.\n•Unlike relational tables, column family’s schema is\nnotfixed ,and thistype ofdatabase does not\nforce individual rows tohave allthecolumns .",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 50,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P51_C1",
+    "text": "Example ofcolumn family UserProfile",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 51,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P52_C1",
+    "text": "Column -based nosql approach\nColumn based databases:\n•Column family consists ofmultiple rows .\n•Each rowcancontain adifferent number ofcolumns totheother rows .And thecolumns\ndon’t have tomatch thecolumns intheother rows (they canhave different column names,\ndata types) .\n•Each column iscontained toitsrow.Itdoesn’t span allrows likeinarelational\ndatabase .Each column contains aname/value pair, along withatimestamp(date ofinsertion of\nthedata) .",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 52,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P53_C1",
+    "text": "Column -based NoSql approach databases\n•Row Key. Each rowhasaunique key, which isaunique identifier forthatrow.\n•Column. Each column contains aname, avalue, andtimestamp.\n•Name. This isthename ofthename/value pair.\n•Value. This isthevalue ofthename/value pair.Row Structure:\nRow\nKey RowColumn Column Column\nName\nValue\nTimestampName\nValue\nTimestampName\nValue\nTimestamp",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 53,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P54_C1",
+    "text": "DataBases using thecolumn based approach\nComparison between RDBMS andColumn \nbased DBs\nColumn based RDBMS\nKeyspace database\nColumn family table\nRecord Record\nColumn thatvary amongst records Columns arethesame among all \nrecords",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 54,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P55_C1",
+    "text": "Column -based nosql approach\nUse cases:\n•Thestorage oferror reports :The flexibility ofthese DBs allow theoptimal storage oferror \nreports generated byseveral applications, where each oneofthem canusethesuitable group’s \ncolumn .\n•Blogs data management :Blogs use these DBs tostore publications, their links, andthe\nassociated comments .\n•Number ofvisitors reports :Thesystems forcounting thenumber ofvisitors usethese kinds of\ndatabases thanks tothedynamic nature oftheir columns. This istoallow theclassification per \npage/site.\nMassive datasets (billions of rows ), Time -series data, IoTsensor data, Event logging, \nReal -time analytics",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 55,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P56_C1",
+    "text": "DataBases using thecolumn based approach\nColumn based databases:\nHBase, Cassandra, HBase, Hypertable areNoSQL query examples ofcolumn -based databases",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 56,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P57_C1",
+    "text": "Recap\nNoSQL Type Advantages Disadvantages Best Use Cases\nDocument -BasedFlexible schema, stores \ncomplex/nested data naturally, \neasy to map to application \nobjects, supports rich queriesData duplication, joins are \nlimited , complex relationships\ncanbedifficultUser profiles, e -commerce \ncatalogs, content management, \nweb applications\nColumn -Based (Wide -Column )Highly scalable, excellent for \nhuge datasets, fast writes and \nreads on specific columns, \ngood for distributed systemsMore complex data modeling, \nlimited joins, less intuitive than \nSQLBig data, time -series data, IoT, \nevent logging, analytics\nGraph -BasedExcellent for highly connected \ndata, very fast relationship \ntraversal, intuitive \nrepresentation of networksNot ideal for large aggregations\nor tabular data, or statistics",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 57,
+    "chunk_index": 1
+  },
+  {
+    "chunk_id": "NoSQL_L1_P57_C2",
+    "text": "nnected \ndata, very fast relationship \ntraversal, intuitive \nrepresentation of networksNot ideal for large aggregations\nor tabular data, or statistics . It \ncanbeharder to scale\nhorizontally , except infinigraph\ncasesSocial networks, \nrecommendation systems, \nfraud detection, network \nanalysis\nKey-ValueExtremely fast, simple design, \nhighly scalable, low latencyQueries usually limited to key \nlookup, little support for \nrelationships or complex \nsearchesCaching , session storage , \nshopping carts , real -time \napplications",
+    "source_file": "Big data - NOSQL Overview__.pdf",
+    "lecture_number": 1,
+    "page_number": 57,
+    "chunk_index": 2
+  }
+]

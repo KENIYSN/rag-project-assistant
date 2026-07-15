@@ -1,0 +1,26 @@
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}/venv/bin/python3",
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/venv/lib/python3.9/site-packages"
+    ],
+    "python.terminal.activateEnvironment": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+
+    // Désactiver Pyrefly (cause de faux positifs dans /__pyrefly_virtual__/inmemory)
+    "pyrefly.enable": false,
+
+    // Utiliser Pylance (le linter officiel Microsoft) à la place
+    "python.languageServer": "Pylance",
+
+    // Dire à Pylance d'utiliser le bon chemin pour trouver PyPDF2
+    "python.analysis.venvPath": "${workspaceFolder}",
+    "python.analysis.venvFolders": ["venv"],
+
+    // Exclure les fichiers virtuels internes des linters de l'analyse
+    "files.exclude": {
+        "**/__pyrefly_virtual__": true
+    },
+    "search.exclude": {
+        "**/__pyrefly_virtual__": true
+    }
+}
