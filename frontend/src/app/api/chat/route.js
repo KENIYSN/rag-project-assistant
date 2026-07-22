@@ -14,7 +14,7 @@ const openrouter = new OpenRouter({
 const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
 const MODEL = "google/gemma-4-26b-a4b-it:free";
 
-function buildSystemPrompt(chunks, fileContent, fileName) {
+function buildSystemPrompt(chunks) {
   const contextBlocks = chunks
     .map((chunk, i) => {
       const src = chunk.source_file || "unknown";
@@ -23,11 +23,6 @@ function buildSystemPrompt(chunks, fileContent, fileName) {
       return `[Source ${i + 1}: ${src}${pg}${lec}]\n${chunk.text}`;
     })
     .join("\n\n---\n\n");
-
-  let fileBlock = "";
-  if (fileContent) {
-    fileBlock = `\n\n## UPLOADED FILE: ${fileName || "file"}\n${fileContent.slice(0, 8000)}`;
-  }
 
   return `You are a precise, helpful university course assistant. Your role is to answer student questions EXCLUSIVELY based on the course material provided below.
 
@@ -40,12 +35,12 @@ function buildSystemPrompt(chunks, fileContent, fileName) {
 6. NEVER fabricate information. Accuracy is more important than completeness.
 
 ## COURSE CONTEXT
-${contextBlocks || "(No context passages were retrieved for this question.)"}${fileBlock}`;
+${contextBlocks || "(No context passages were retrieved for this question.)"}`;
 }
 
 export async function POST(request) {
   try {
-    const { question, fileContent, fileName } = await request.json();
+    const { question, fileName } = await request.json();
 
     if (!question?.trim()) {
       return new Response(JSON.stringify({ error: "Question is required." }), {
@@ -62,7 +57,11 @@ export async function POST(request) {
       const searchRes = await fetch(`${BACKEND_URL}/search`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: question.trim(), top_k: 5 }),
+        body: JSON.stringify({
+          query: question.trim(),
+          top_k: 5,
+          ...(fileName ? { source_file: fileName } : {}),
+        }),
       });
 
       if (searchRes.ok) {
@@ -80,7 +79,7 @@ export async function POST(request) {
     }
 
     // 2. Build RAG prompt
-    const systemPrompt = buildSystemPrompt(chunks, fileContent, fileName);
+    const systemPrompt = buildSystemPrompt(chunks);
     const messages = [
       { role: "system", content: systemPrompt },
       { role: "user", content: question.trim() },
@@ -88,7 +87,7 @@ export async function POST(request) {
 
     // 3. Stream from OpenRouter
     const stream = await openrouter.chat.send({
-      chatRequest: { model: "nvidia/nemotron-3-ultra-550b-a55b:free", messages, stream: true },
+      chatRequest: { model: MODEL, messages, stream: true },
     });
 
     // 4. SSE response
@@ -109,7 +108,7 @@ export async function POST(request) {
                 encoder.encode(`data: ${JSON.stringify({ type: "token", content })}\n\n`)
               );
             }
-            
+
             // Usage information comes in the final chunk
             if (chunk.usage) {
               console.log("Reasoning tokens:", chunk.usage.completionTokensDetails?.reasoningTokens);

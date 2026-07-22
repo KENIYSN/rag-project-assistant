@@ -13,10 +13,13 @@ const TIPS = [
 ];
 
 const API_URL = "/api/chat";
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
 
 export default function ChatInterface() {
   const [messages, setMessages] = useState([]);
   const [isStreaming, setIsStreaming] = useState(false);
+  const [activeSource, setActiveSource] = useState(null); // nom du PDF actuellement indexé
+  const [isUploading, setIsUploading] = useState(false);
   const messagesEndRef = useRef(null);
 
   const hasMessages = messages.length > 0;
@@ -27,13 +30,76 @@ export default function ChatInterface() {
 
   const sendMessage = useCallback(
     async (question, file) => {
-      if (!question.trim() || isStreaming) return;
+      if (!question.trim() || isStreaming || isUploading) return;
 
+      // ── 1. Upload du PDF si un fichier est attaché ────────────────────────
+      let currentSource = activeSource; // fichier déjà indexé de la session
+
+      if (file && file.name.toLowerCase().endsWith(".pdf")) {
+        setIsUploading(true);
+        // Message système d'information
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: Date.now() - 2,
+            role: "system",
+            content: `⏳ Indexation de **${file.name}** en cours…`,
+          },
+        ]);
+
+        try {
+          const formData = new FormData();
+          formData.append("file", file);
+          const uploadRes = await fetch(`${BACKEND_URL}/upload_course`, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!uploadRes.ok) {
+            const err = await uploadRes.json().catch(() => ({}));
+            throw new Error(err.detail || `Upload error (${uploadRes.status})`);
+          }
+
+          const uploadData = await uploadRes.json();
+          currentSource = file.name;
+          setActiveSource(currentSource);
+
+          // Remplace le message d'attente par la confirmation
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.content?.includes("Indexation de") && m.role === "system"
+                ? {
+                    ...m,
+                    content: `✅ **${uploadData.chunks_inserted} chunks** indexés depuis *${file.name}*. Tu peux maintenant poser tes questions !`,
+                  }
+                : m
+            )
+          );
+        } catch (uploadError) {
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.content?.includes("Indexation de") && m.role === "system"
+                ? {
+                    ...m,
+                    content: `❌ Erreur lors de l'upload : ${uploadError.message}`,
+                    isError: true,
+                  }
+                : m
+            )
+          );
+          setIsUploading(false);
+          return; // on n'envoie pas la question si l'upload a échoué
+        } finally {
+          setIsUploading(false);
+        }
+      }
+
+      // ── 2. Envoi de la question au LLM ────────────────────────────────
       const userMsg = {
         id: Date.now(),
         role: "user",
         content: question.trim(),
-        fileName: file ? file.name : null,
+        fileName: file ? file.name : currentSource,
       };
 
       const assistantMsg = {
@@ -48,13 +114,11 @@ export default function ChatInterface() {
       setIsStreaming(true);
 
       try {
-        let body = { question: question.trim() };
-
-        if (file) {
-          const text = await file.text();
-          body.fileContent = text;
-          body.fileName = file.name;
-        }
+        // On passe le fileName pour filtrer la recherche sur ce PDF
+        const body = {
+          question: question.trim(),
+          fileName: currentSource || null,
+        };
 
         const response = await fetch(API_URL, {
           method: "POST",
@@ -151,7 +215,7 @@ export default function ChatInterface() {
         setIsStreaming(false);
       }
     },
-    [isStreaming]
+    [isStreaming, isUploading, activeSource]
   );
 
   return (
@@ -193,7 +257,22 @@ export default function ChatInterface() {
 
       {/* ── Chat bar ──────────────────────────────────────────────────── */}
       <div className={`chatbar-wrapper${hasMessages ? " bottom" : ""}`}>
-        <ChatBar onSend={sendMessage} disabled={isStreaming} />
+        {activeSource && (
+          <div style={{
+            textAlign: "center",
+            fontSize: "0.75rem",
+            color: "var(--text-muted, #888)",
+            marginBottom: "6px",
+          }}>
+            📚 Source active : <strong>{activeSource}</strong>
+            <button
+              onClick={() => setActiveSource(null)}
+              style={{ marginLeft: "8px", cursor: "pointer", background: "none", border: "none", color: "inherit" }}
+              title="Retirer le filtre de source"
+            >✕</button>
+          </div>
+        )}
+        <ChatBar onSend={sendMessage} disabled={isStreaming || isUploading} />
       </div>
 
       {/* ── Team footer ───────────────────────────────────────────────── */}
