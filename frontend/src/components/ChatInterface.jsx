@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import ChatBar from "./ChatBar";
 import MessageList from "./MessageList";
-import TeamFooter from "./TeamFooter";
+import Sidebar from "./Sidebar";
 
 const TIPS = [
   "What are the main types of NoSQL databases?",
@@ -20,6 +20,7 @@ export default function ChatInterface() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [activeSource, setActiveSource] = useState(null); // nom du PDF actuellement indexé
   const [isUploading, setIsUploading] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const messagesEndRef = useRef(null);
 
   const hasMessages = messages.length > 0;
@@ -27,6 +28,13 @@ export default function ChatInterface() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const handleNewChat = useCallback(() => {
+    setMessages([]);
+    setActiveSource(null);
+    setIsStreaming(false);
+    setIsUploading(false);
+  }, []);
 
   const sendMessage = useCallback(
     async (question, file) => {
@@ -219,64 +227,87 @@ export default function ChatInterface() {
   );
 
   return (
-    <div className="app">
-      {/* ── Header ──────────────────────────────────────────────────────── */}
-      <div className="app-header">
-        <img
-          className="header-logo"
-          src="/logo_faculte.png"
-          alt="Ibn Tofaïl University — Faculté des Sciences"
-        />
-        <h1>Project RAG-ASSISTANT</h1>
-      </div>
+    <div className={`app${sidebarOpen ? " sidebar-active" : ""}`}>
+      {/* ── Sidebar ───────────────────────────────────────────────────── */}
+      <Sidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        onNewChat={handleNewChat}
+        messageCount={messages.length}
+      />
 
-      {/* ── Center: tips + messages ────────────────────────────────────── */}
-      <div className={`center-area${hasMessages ? " has-messages" : ""}`}>
-        {!hasMessages && (
-          <div className="tips-section">
-            <p className="tips-label">Try asking</p>
-            <div className="tips-grid">
-              {TIPS.map((tip) => (
-                <button
-                  key={tip}
-                  className="tip-chip"
-                  onClick={() => sendMessage(tip, null)}
-                  type="button"
-                >
-                  {tip}
-                </button>
-              ))}
+      {/* ── Main Content ──────────────────────────────────────────────── */}
+      <div className="main-content">
+        {/* ── Top bar ─────────────────────────────────────────────────── */}
+        <div className="topbar">
+          <button
+            className="sidebar-toggle"
+            onClick={() => setSidebarOpen((prev) => !prev)}
+            aria-label="Toggle sidebar"
+            type="button"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <line x1="9" y1="3" x2="9" y2="21" />
+            </svg>
+          </button>
+          <span className="topbar-title">RAG Assistant Showcase</span>
+        </div>
+
+        {/* ── Center: welcome / messages ──────────────────────────────── */}
+        <div className={`center-area${hasMessages ? " has-messages" : ""}`}>
+          {!hasMessages && (
+            <div className="welcome-section">
+              <img
+                className="welcome-logo"
+                src="/logo_faculte.png"
+                alt="Ibn Tofaïl University — Faculté des Sciences"
+              />
+              <h1 className="welcome-heading">RAG Assistant Showcase</h1>
+              <p className="welcome-sub">
+                Upload a course PDF or ask anything about your materials
+              </p>
+
+              <div className="tips-grid">
+                {TIPS.map((tip) => (
+                  <button
+                    key={tip}
+                    className="tip-card"
+                    onClick={() => sendMessage(tip, null)}
+                    type="button"
+                  >
+                    <span className="tip-text">{tip}</span>
+                    <span className="tip-arrow">→</span>
+                  </button>
+                ))}
+              </div>
+
+              <p className="welcome-disclaimer">
+                Answers are generated from your uploaded documents only. Always verify critical information.
+              </p>
             </div>
-          </div>
-        )}
+          )}
 
-        {hasMessages && (
-          <MessageList messages={messages} endRef={messagesEndRef} />
-        )}
+          {hasMessages && (
+            <MessageList messages={messages} endRef={messagesEndRef} />
+          )}
+        </div>
+
+        {/* ── Chat bar ──────────────────────────────────────────────────── */}
+        <div className={`chatbar-wrapper${hasMessages ? " bottom" : ""}`}>
+          {activeSource && (
+            <div className="active-source-badge">
+              <span>📚 Active source: <strong>{activeSource}</strong></span>
+              <button
+                onClick={() => setActiveSource(null)}
+                title="Remove source filter"
+                aria-label="Remove source filter"
+              >✕</button>
+            </div>
+          )}
+          <ChatBar onSend={sendMessage} disabled={isStreaming || isUploading} />
+        </div>
       </div>
-
-      {/* ── Chat bar ──────────────────────────────────────────────────── */}
-      <div className={`chatbar-wrapper${hasMessages ? " bottom" : ""}`}>
-        {activeSource && (
-          <div style={{
-            textAlign: "center",
-            fontSize: "0.75rem",
-            color: "var(--text-muted, #888)",
-            marginBottom: "6px",
-          }}>
-            📚 Source active : <strong>{activeSource}</strong>
-            <button
-              onClick={() => setActiveSource(null)}
-              style={{ marginLeft: "8px", cursor: "pointer", background: "none", border: "none", color: "inherit" }}
-              title="Retirer le filtre de source"
-            >✕</button>
-          </div>
-        )}
-        <ChatBar onSend={sendMessage} disabled={isStreaming || isUploading} />
-      </div>
-
-      {/* ── Team footer ───────────────────────────────────────────────── */}
-      <TeamFooter />
     </div>
   );
 }
